@@ -1,0 +1,28 @@
+{
+  "generated_at": 1790699528.7842739,
+  "n_cases": 8,
+  "arms": {
+    "memory_on": {
+      "attacks": 4,
+      "benign": 4,
+      "caught": 4,
+      "detection_rate": 1.0,
+      "false_positives": 0,
+      "false_positive_rate": 0.0,
+      "friction": 0,
+      "latency_p50": 22474,
+      "latency_p95": 26605
+    },
+    "memory_off": {
+      "attacks": 4,
+      "benign": 4,
+      "caught": 4,
+      "detection_rate": 1.0,
+      "false_positives": 0,
+      "false_positive_rate": 0.0,
+      "friction": 0,
+      "latency_p50": 6479,
+      "latency_p95": 12379
+    }
+  }
+}

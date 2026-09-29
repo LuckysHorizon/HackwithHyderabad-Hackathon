@@ -1,0 +1,43 @@
+# --- secrets ---
+.env
+*.env
+!.env.example
+
+# --- python ---
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# --- node / web ---
+node_modules/
+web/dist/
+web/.vite/
+
+# --- next.js (landing page) ---
+.next/
+/out/
+build/
+*.tsbuildinfo
+next-env.d.ts
+.vercel/
+
+# --- local tooling / agent scaffolding (not part of the application) ---
+.claude/
+.agents/
+skills-lock.json
+
+# --- local state / logs ---
+*.log
+skills-install.log
+*.sqlite
+*.sqlite3
+data/*.db
+
+# --- os ---
+.DS_Store
+Thumbs.db
