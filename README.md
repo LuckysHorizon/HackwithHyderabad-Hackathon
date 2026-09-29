@@ -2,6 +2,8 @@
 
 An immune-memory layer for customer-facing AI agents.
 
+**Live demo:** [landing page](https://hackwith-hyderabad-hackathon.vercel.app/) · [live console](https://antibody-fosa.onrender.com/)
+
 Antibody sits in front of an AI agent as a gateway. Before the agent answers a
 user, Antibody recalls how similar users and messages have behaved in the past,
 grades the request, and returns a graded decision: allow, verify, sandbox, or
