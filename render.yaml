@@ -1,0 +1,35 @@
+# Render blueprint for the Antibody gateway + console.
+# One stateful web service (FastAPI + WebSocket + static React console).
+# Secrets are marked `sync: false` so Render prompts for them in the dashboard
+# instead of storing them in this file. Non-secret defaults are inlined.
+services:
+  - type: web
+    name: antibody
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn api.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.6"
+      - key: HINDSIGHT_BASE_URL
+        value: https://api.hindsight.vectorize.io
+      - key: HINDSIGHT_API_KEY
+        sync: false
+      - key: HINDSIGHT_TRAFFIC_BANK
+        value: antibody-traffic
+      - key: HINDSIGHT_ANTIGEN_BANK
+        value: antibody-antigens
+      - key: HINDSIGHT_DREAM_BANK
+        value: antibody-dream
+      - key: GROQ_API_KEY
+        sync: false
+      - key: GROQ_API_KEY_BACKUP
+        sync: false
+      - key: GROQ_MODEL
+        value: openai/gpt-oss-120b
+      - key: GROQ_MODEL_FALLBACK
+        value: openai/gpt-oss-20b
+      - key: IDENTITY_SALT
+        sync: false

@@ -1,0 +1,33 @@
+# --- secrets: never bake into the image ---
+.env
+*.env
+!.env.example
+
+# --- python ---
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# --- not needed in the backend image ---
+Landing Page/
+node_modules/
+.next/
+.git/
+.github/
+.claude/
+.agents/
+skills-lock.json
+
+# --- local state / logs ---
+*.log
+*.sqlite
+*.sqlite3
+
+# --- os ---
+.DS_Store
+Thumbs.db

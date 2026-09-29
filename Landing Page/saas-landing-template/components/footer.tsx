@@ -6,7 +6,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRightIcon } from "@radix-ui/react-icons";
 
-const APP_URL = "http://localhost:8000/";
+const APP_URL = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:8000/";
 
 const Footer = () => {
   const year = new Date().getFullYear();

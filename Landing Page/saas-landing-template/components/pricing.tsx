@@ -6,7 +6,7 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { CheckIcon } from "@radix-ui/react-icons";
 
-const APP_URL = "http://localhost:8000/";
+const APP_URL = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:8000/";
 
 export default function Pricing() {
   const plans = [

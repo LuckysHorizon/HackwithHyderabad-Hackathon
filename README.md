@@ -161,6 +161,74 @@ pnpm dev
 It runs at http://localhost:3000/. Its "Try here" buttons link to the console
 at http://localhost:8000/, so start the backend as well to follow them.
 
+## Deployment
+
+Antibody is two deployable units:
+
+1. **Gateway + console** (`api/` + `web/`) — one stateful, long-lived web
+   service. It holds in-memory state (event feed, analyst queue, scam log) and
+   serves a `/events` WebSocket, so it must run as a single persistent instance.
+   Serverless/function platforms are not suitable.
+2. **Landing page** (`Landing Page/saas-landing-template/`) — a static Next.js
+   site that only links to the gateway. It deploys anywhere Next.js runs.
+
+### Gateway + console → Render (quickest)
+
+A `render.yaml` blueprint is included. On [Render](https://render.com), create
+a new Blueprint from the repository; it provisions one free web service that
+runs `uvicorn api.main:app --host 0.0.0.0 --port $PORT`, health-checks
+`/health`, and prompts for the secret env vars.
+
+Set these in the Render dashboard (the blueprint marks them `sync: false` so
+they are never stored in git):
+
+- `HINDSIGHT_API_KEY`
+- `GROQ_API_KEY` (and `GROQ_API_KEY_BACKUP` if you have one)
+- `IDENTITY_SALT` (any long random string)
+
+The non-secret defaults (`HINDSIGHT_BASE_URL`, the three bank ids, and the Groq
+model ids) are inlined in the blueprint and can be overridden in the dashboard.
+
+Once the service is live, run the one-time bank setup from the service Shell so
+the demo starts with confirmed attack patterns loaded:
+
+```
+python scripts/setup_banks.py
+python scripts/seed_antigens.py
+```
+
+The console is then served at the service root (`https://<your-service>/`) and
+the WebSocket upgrades to `wss://` automatically — the frontend derives its
+origin from the browser, so no frontend URL needs editing.
+
+### Gateway + console → Railway / Fly / any container host
+
+A `Dockerfile` (python:3.12-slim) and a `Procfile` are included for
+container-based platforms. Both bind to `0.0.0.0:$PORT`. Set the same env vars
+listed above in the platform's settings, then run the two setup scripts once
+from a shell on the instance.
+
+### Landing page → Vercel
+
+Import `Landing Page/saas-landing-template/` on [Vercel](https://vercel.com)
+(the repo root is the monorepo; point the project root at that subdirectory).
+Set one environment variable so the "Try here" buttons target the deployed
+gateway instead of localhost:
+
+```
+NEXT_PUBLIC_APP_URL=https://<your-gateway-host>/
+```
+
+See `Landing Page/saas-landing-template/.env.example`. With it unset, the
+buttons fall back to `http://localhost:8000/`.
+
+### Before exposing it publicly
+
+The gateway is unauthenticated and uses permissive CORS (`*`) by design, for a
+local demo or kiosk. Put it behind authentication and tighten CORS before
+exposing it on a public URL, and rotate any Hindsight and Groq keys used during
+the hackathon.
+
 ## Scripts
 
 | Script | What it does |

@@ -23,7 +23,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const APP_URL = "http://localhost:8000/";
+const APP_URL = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:8000/";
 
 export default function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

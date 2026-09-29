@@ -13,7 +13,7 @@ import {
 import { motion } from "framer-motion";
 import { ArrowRightIcon } from "@radix-ui/react-icons";
 
-const APP_URL = "http://localhost:8000/";
+const APP_URL = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:8000/";
 
 export default function Hero() {
   return (
