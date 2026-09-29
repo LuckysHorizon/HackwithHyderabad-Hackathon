@@ -84,7 +84,7 @@ Every request flows through four stages:
 │   ├── app.css / tokens.css  styling and design tokens
 │   ├── scamme.html           "Scam Me" challenge page
 │   └── scoreboard.html       big-screen scoreboard
-├── Landing Page/
+├── landing-page/
 │   └── saas-landing-template/  Next.js marketing landing page
 ├── requirements.txt
 ├── .env.example              configuration template (copy to .env)
@@ -153,7 +153,7 @@ same origin over REST and a `/events` WebSocket.
 The marketing landing page is a separate Next.js app.
 
 ```
-cd "Landing Page/saas-landing-template"
+cd "landing-page/saas-landing-template"
 pnpm install
 pnpm dev
 ```
@@ -169,7 +169,7 @@ Antibody is two deployable units:
    service. It holds in-memory state (event feed, analyst queue, scam log) and
    serves a `/events` WebSocket, so it must run as a single persistent instance.
    Serverless/function platforms are not suitable.
-2. **Landing page** (`Landing Page/saas-landing-template/`) — a static Next.js
+2. **Landing page** (`landing-page/saas-landing-template/`) — a static Next.js
    site that only links to the gateway. It deploys anywhere Next.js runs.
 
 ### Gateway + console → Render (quickest)
@@ -210,7 +210,7 @@ from a shell on the instance.
 
 ### Landing page → Vercel
 
-Import `Landing Page/saas-landing-template/` on [Vercel](https://vercel.com)
+Import `landing-page/saas-landing-template/` on [Vercel](https://vercel.com)
 (the repo root is the monorepo; point the project root at that subdirectory).
 Set one environment variable so the "Try here" buttons target the deployed
 gateway instead of localhost:
@@ -219,7 +219,7 @@ gateway instead of localhost:
 NEXT_PUBLIC_APP_URL=https://<your-gateway-host>/
 ```
 
-See `Landing Page/saas-landing-template/.env.example`. With it unset, the
+See `landing-page/saas-landing-template/.env.example`. With it unset, the
 buttons fall back to `http://localhost:8000/`.
 
 ### Before exposing it publicly

@@ -14,7 +14,7 @@ __pycache__/
 .ruff_cache/
 
 # --- not needed in the backend image ---
-Landing Page/
+landing-page/
 node_modules/
 .next/
 .git/
